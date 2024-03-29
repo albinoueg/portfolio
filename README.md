@@ -1,6 +1,6 @@
 # Bem-vindo ao Meu Portfólio!
 
-Seja bem-vindo ao meu portfólio! Sou um desenvolvedor apaixonado, especializado em criar soluções inovadoras e escaláveis utilizando tecnologias de ponta. Venho atuando desde 2014 no desenvolvimento de softwares utilizando Java como principal linguagem de programação, e desde 2019 tenho me dedicado intensamente ao desenvolvimento com Flutter, uma plataforma poderosa para a criação de aplicativos multiplataforma de alta qualidade.
+Seja bem-vindo ao meu portfólio! Me chamo Albino e sou um desenvolvedor apaixonado, especializado em criar soluções inovadoras e escaláveis utilizando tecnologias de ponta. Venho atuando desde 2014 no desenvolvimento de softwares utilizando Java como principal linguagem de programação, e desde 2019 tenho me dedicado intensamente ao desenvolvimento com Flutter, uma plataforma poderosa para a criação de aplicativos multiplataforma de alta qualidade.
 
 ### Experiência com Java
 
