@@ -1,16 +1,15 @@
-# todo_list
+# Todo List
 
-A new Flutter project.
+Um projeto Flutter de tista de tarefas, desenvolvido a partir de conhecimentos adquiridos assistindo aulas da plataforma ['Academia do Flutter'](https://academiadoflutter.com.br) o aplicativo não tem nenhum fim comercial.
 
-## Getting Started
+## Tecnologias
 
-This project is a starting point for a Flutter application.
+* Este projeto utiliza Provider e ChangeNotifier como gerenciadores de estado. 
+* Utiliza SQLite com solução embarcada para armazenamento de dados.
+* Firebase para implementação de acesso restrito via usuário e senha e integração com Google Auth.
 
-A few resources to get you started if this is your first Flutter project:
+## Publicação
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Este aplicativo está disponível para utilização e testes na play store para tanto basta acessar: [Todo List](https://play.google.com/store/apps/details?id=br.com.albinomoreira.todo_list)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[Política de Privacidade](https://albinoueg.github.io/todo_list_politica_privacidade/)
