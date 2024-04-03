@@ -32,7 +32,7 @@ class AppModule extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-          create: (context) => TudoListAuthProvider(
+          create: (context) => TodoListAuthProvider(
               firebaseAuth: context.read(), userService: context.read())
             ..loadListeners(),
           lazy: false,

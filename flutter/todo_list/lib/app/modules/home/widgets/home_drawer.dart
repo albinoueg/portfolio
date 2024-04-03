@@ -22,7 +22,7 @@ class HomeDrawer extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Selector<TudoListAuthProvider, String>(
+                Selector<TodoListAuthProvider, String>(
                   selector: (context, authProvider) {
                     return authProvider.user?.photoURL ??
                         'https://banner2.cleanpng.com/20181231/fta/kisspng-computer-icons-user-profile-portable-network-graph-circle-svg-png-icon-free-download-5-4714-onli-5c2a3809d6e8e6.1821006915462707298803.jpg';
@@ -37,7 +37,7 @@ class HomeDrawer extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Selector<TudoListAuthProvider, String>(
+                    child: Selector<TodoListAuthProvider, String>(
                       selector: (context, authProvider) {
                         return authProvider.user?.displayName ?? 'Usuário';
                       },
@@ -96,7 +96,7 @@ class HomeDrawer extends StatelessWidget {
             title: const Text('Alterar nome'),
           ),
           ListTile(
-            onTap: () => context.read<TudoListAuthProvider>().logout(),
+            onTap: () => context.read<TodoListAuthProvider>().logout(),
             title: const Text('Sair'),
           ),
         ],

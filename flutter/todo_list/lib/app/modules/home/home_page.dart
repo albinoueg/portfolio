@@ -1,25 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todo_list/app/core/auth/todo_list_auth_provider.dart';
+import 'package:todo_list/app/core/ui/obscure_password_icons.dart';
+import 'package:todo_list/app/core/ui/theme_extensions.dart';
 import 'package:todo_list/app/modules/home/widgets/home_drawer.dart';
+import 'package:todo_list/app/modules/home/widgets/home_filter.dart';
+import 'package:todo_list/app/modules/home/widgets/home_header.dart';
+import 'package:todo_list/app/modules/home/widgets/home_tasks.dart';
+import 'package:todo_list/app/modules/home/widgets/home_week_filter.dart';
+import 'package:todo_list/app/modules/tasks/tasks_module.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void _goToCreateTask(BuildContext context) {
+    //Navigator.of(context).pushNamed('/tasks/create');
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 400),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          animation = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInQuad,
+          );
+          return ScaleTransition(
+            scale: animation,
+            alignment: Alignment.bottomRight,
+            child: child,
+          );
+        },
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return TasksModule().getPage('/tasks/create', context);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('HOME'),
-        ),
-        drawer: HomeDrawer(),
-        body: Center(
-          child: TextButton(
-            onPressed: () {
-              context.read<TudoListAuthProvider>().logout();
-            },
-            child: const Text('logout'),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: context.primaryColor),
+        backgroundColor: context.softWhiteColor,
+        elevation: 0,
+        actions: [
+          PopupMenuButton(
+            icon: const Icon(ObscurePasswordIcons.filter),
+            itemBuilder: (context) => [
+              const PopupMenuItem<bool>(
+                child: Text('Mostrar tarefas concluidas'),
+              ),
+            ],
           ),
-        ));
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: context.primaryColor,
+        onPressed: () => _goToCreateTask(context),
+        child: const Icon(Icons.add),
+      ),
+      backgroundColor: context.softWhiteColor,
+      drawer: HomeDrawer(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                  minWidth: constraints.maxWidth),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: const IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      HomeHeader(),
+                      HomeFilter(),
+                      HomeWeekFilter(),
+                      HomeTasks(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

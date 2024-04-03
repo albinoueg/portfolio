@@ -3,11 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:todo_list/app/core/navigator/todo_list_navigator.dart';
 import 'package:todo_list/app/services/user/user_service.dart';
 
-class TudoListAuthProvider extends ChangeNotifier {
+class TodoListAuthProvider extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth;
   final UserService _userService;
 
-  TudoListAuthProvider({
+  TodoListAuthProvider({
     required FirebaseAuth firebaseAuth,
     required UserService userService,
   })  : _firebaseAuth = firebaseAuth,
