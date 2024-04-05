@@ -10,21 +10,17 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Row(
-        children: [
-          Selector<TodoListAuthProvider, String>(
-            builder: (context, value, child) {
-              return Text(
-                'Olá, $value!',
-                style: context.textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              );
-            },
-            selector: (context, authProvider) =>
-                authProvider.user?.displayName ?? 'Usuário',
-          ),
-        ],
+      child: Selector<TodoListAuthProvider, String>(
+        builder: (context, value, child) {
+          return Text(
+            'Olá, $value!',
+            style: context.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          );
+        },
+        selector: (context, authProvider) =>
+            authProvider.user?.displayName ?? 'Usuário',
       ),
     );
   }

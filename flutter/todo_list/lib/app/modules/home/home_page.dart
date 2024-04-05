@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/app/core/ui/obscure_password_icons.dart';
+import 'package:todo_list/app/core/notifier/default_listener_notifier.dart';
 import 'package:todo_list/app/core/ui/theme_extensions.dart';
+import 'package:todo_list/app/models/task_filter_enum.dart';
+import 'package:todo_list/app/modules/home/home_controller.dart';
 import 'package:todo_list/app/modules/home/widgets/home_drawer.dart';
 import 'package:todo_list/app/modules/home/widgets/home_filter.dart';
 import 'package:todo_list/app/modules/home/widgets/home_header.dart';
@@ -8,12 +10,35 @@ import 'package:todo_list/app/modules/home/widgets/home_tasks.dart';
 import 'package:todo_list/app/modules/home/widgets/home_week_filter.dart';
 import 'package:todo_list/app/modules/tasks/tasks_module.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  final HomeController _homeController;
 
-  void _goToCreateTask(BuildContext context) {
+  const HomePage({super.key, required HomeController homeController})
+      : _homeController = homeController;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    DefaultListenerNotifier(changeNotifier: widget._homeController).listener(
+      context: context,
+      successVoidCallback: (notifier, listener) {
+        listener.dispose();
+      },
+    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      widget._homeController.loadTotalTasks();
+      widget._homeController.findTasks(filter: TaskFilterEnum.today);
+    });
+  }
+
+  void _goToCreateTask(BuildContext context) async {
     //Navigator.of(context).pushNamed('/tasks/create');
-    Navigator.of(context).push(
+    await Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -32,6 +57,7 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
+    widget._homeController.refreshPage();
   }
 
   @override
@@ -43,10 +69,14 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         actions: [
           PopupMenuButton(
-            icon: const Icon(ObscurePasswordIcons.filter),
+            onSelected: (value) {
+              widget._homeController.showOrHideFinishedTasks();
+            },
+            icon: const Icon(Icons.filter_alt),
             itemBuilder: (context) => [
-              const PopupMenuItem<bool>(
-                child: Text('Mostrar tarefas concluidas'),
+              PopupMenuItem<bool>(
+                value: false,
+                child: Text('${widget._homeController.showFinishingTasks ? 'Esconder' : 'Exibir'} tarefas concluidas'),
               ),
             ],
           ),
